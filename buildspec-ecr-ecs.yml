@@ -49,13 +49,13 @@ phases:
       - cd event-statistics
 #      - mvn package -Pnative -Dquarkus.native.container-build=true
       - ls
-      - mv ./src/main/docker/Dockerfile.native ./Dockerfile
+      - mv ./src/main/docker/Dockerfile.jvm ./Dockerfile
       - ls
       - docker --help
 #      - dockerd
       - docker build -t $ECR_REPO/event-statistics:latest .
       - docker push "$ECR_REPO/event-statistics:latest"
-      - mv Dockerfile Dockerfile.native
+      - mv Dockerfile Dockerfile.jvm
       - cd ..
       - ls
 
