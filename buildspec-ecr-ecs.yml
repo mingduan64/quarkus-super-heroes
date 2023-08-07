@@ -44,7 +44,7 @@ phases:
 
       # Build and push quarkushop-customer
       - cd event-statistics
-      - mvn package -Pnative -Dquarkus.native.container-build=true
+#      - mvn package -Pnative -Dquarkus.native.container-build=true
       - ls
       - mv ./src/main/docker/Dockerfile.native ./Dockerfile
       - ls
