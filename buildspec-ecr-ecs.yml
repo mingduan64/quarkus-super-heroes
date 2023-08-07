@@ -27,7 +27,10 @@ phases:
       - curl -fsSL get.docker.com | CHANNEL=stable sh
       - apt install docker-ce
       - apt-get install docker-ce docker-ce-cli containerd.io
-#      # Install Docker
+      - apt-get update
+      - apt-get install fuse-overlayfs
+
+      #      # Install Docker
 #      - apt-get update
 #      - apt-get install -y --no-install-recommends docker-ce docker-ce-cli containerd.io
       - docker --version
