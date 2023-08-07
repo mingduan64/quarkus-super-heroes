@@ -40,7 +40,7 @@ phases:
 #      - cd quarkushop-commons
 #      - docker build -t YOUR_ECR_REPO_URL_COMMON:latest .
 #      - docker push YOUR_ECR_REPO_URL_COMMON:latest
-      - mvn clean install
+      - mvn package -Pnative -Dquarkus.native.container-build=true -DskipTests
 
       # Build and push quarkushop-customer
       - cd event-statistics
