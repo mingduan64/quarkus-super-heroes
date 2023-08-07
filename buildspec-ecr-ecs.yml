@@ -13,6 +13,7 @@ env:
 phases:
   pre_build:
     commands:
+      - apt-get update && apt-get install -y --no-install-recommends python3-pip && pip3 install --upgrade awscli && apt-get clean && rm -rf /var/lib/apt/lists/*
       - aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $ECR_REPO
 
   build:
