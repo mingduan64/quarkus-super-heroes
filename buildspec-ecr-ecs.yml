@@ -15,20 +15,8 @@ phases:
     commands:
        # Install AWS CLI
       - apt-get update && apt-get install -y --no-install-recommends python3-pip && pip3 install --upgrade awscli && apt-get clean && rm -rf /var/lib/apt/lists/*
-    # Install Docker CLI
-      # Enable the Oracle Linux 8 AppStream repository for Docker installation
-      - dnf -y install dnf-utils
-      - dnf config-manager --enable ol8_appstream
-
-      # Install required dependencies and update the package manager
-      - dnf -y install yum-utils
-      - yum update -y
-
-      # Install Docker and related packages
-      - yum -y install docker-engine
-
-      # Start and enable the Docker service
-      - systemctl enable docker
+      # Install Docker CLI
+      - yum install -y yum-utils
       - docker --version
       - aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $ECR_REPO
 
