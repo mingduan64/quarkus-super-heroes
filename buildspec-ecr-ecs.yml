@@ -59,20 +59,41 @@ phases:
       - cd ..
       - ls
 
-      # Build and push quarkusshop-order
-      - cd quarkushop-order
-      - docker build -t "$ECR_REPO/quarkushop-order:latest" -f "$DOCKERFILE_order"
-      - docker push "$ECR_REPO/quarkushop-order:latest"
+      # Build and push rest-fights
+      - cd rest-fights
+      - mv ./src/main/docker/Dockerfile.jvm ./Dockerfile
+      - docker build -t $ECR_REPO/rest-fights:latest .
+      - docker push "$ECR_REPO/rest-fights:latest"
+      - mv Dockerfile Dockerfile.jvm
+      - cd ..
+      - ls
 
-      # Build and push quarkusshop-product
-      - cd quarkushop-product
-      - docker build -t "$ECR_REPO/quarkushop-product:latest" -f "$DOCKERFILE_product"
-      - docker push "$ECR_REPO/quarkushop-product:latest"
+      # Build and push rest-heroes
+      - cd rest-heroes
+      - mv ./src/main/docker/Dockerfile.jvm ./Dockerfile
+      - docker build -t $ECR_REPO/rest-heroes:latest .
+      - docker push "$ECR_REPO/rest-heroes:latest"
+      - mv Dockerfile Dockerfile.jvm
+      - cd ..
+      - ls
 
-      # Build and push quarkusshop-user
-      - cd quarkushop-user
-      - docker build -t "$ECR_REPO/quarkushop-user:latest" -f "$DOCKERFILE_user"
-      - docker push "$ECR_REPO/quarkushop-user:latest"
+      # Build and push rest-villains
+      - cd rest-villains
+      - mv ./src/main/docker/Dockerfile.jvm ./Dockerfile
+      - docker build -t $ECR_REPO/rest-villains:latest .
+      - docker push "$ECR_REPO/rest-villains:latest"
+      - mv Dockerfile Dockerfile.jvm
+      - cd ..
+      - ls
+
+      # Build and push ui-super-heroes
+      - cd ui-super-heroes
+      - mv ./src/main/docker/Dockerfile.jvm ./Dockerfile
+      - docker build -t $ECR_REPO/ui-super-heroes:latest .
+      - docker push "$ECR_REPO/ui-super-heroes:latest"
+      - mv Dockerfile Dockerfile.jvm
+      - cd ..
+      - ls
   post_build:
     commands:
       # Deploy to ECS
