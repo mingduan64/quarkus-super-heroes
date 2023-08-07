@@ -45,7 +45,7 @@ phases:
 #      - docker push YOUR_ECR_REPO_URL_COMMON:latest
       - mvn clean install -DskipTests
 
-      # Build and push quarkushop-customer
+      # Build and push event-statistics
       - cd event-statistics
 #      - mvn package -Pnative -Dquarkus.native.container-build=true
       - ls
@@ -97,6 +97,6 @@ phases:
   post_build:
     commands:
       # Deploy to ECS
-      - bash deploy-ecs.sh
+      - aws ecs update-service --cluster quarkus --service event-statistics --force-new-deployment
 artifacts:
   files: []
