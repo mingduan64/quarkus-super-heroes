@@ -15,15 +15,20 @@ phases:
     commands:
        # Install AWS CLI
       - apt-get update && apt-get install -y --no-install-recommends python3-pip && pip3 install --upgrade awscli && apt-get clean && rm -rf /var/lib/apt/lists/*
-      # Install Docker CLI
-      - apt-get update
-      - apt-get install -y --no-install-recommends apt-transport-https ca-certificates curl gnupg lsb-release
-      - curl -fsSL https://download.docker.com/linux/debian/gpg | gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
-      - echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian $(lsb_release -cs) stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null
-      - apt-get update
-      - apt-get install -y --no-install-recommends docker-ce docker-ce-cli containerd.io
-      - apt-get clean
-      - rm -rf /var/lib/apt/lists/*
+    # Install Docker CLI
+      # Enable the Oracle Linux 8 AppStream repository for Docker installation
+      - dnf -y install dnf-utils
+      - dnf config-manager --enable ol8_appstream
+
+      # Install required dependencies and update the package manager
+      - dnf -y install yum-utils
+      - yum update -y
+
+      # Install Docker and related packages
+      - yum -y install docker-engine
+
+      # Start and enable the Docker service
+      - systemctl enable docker
       - docker --version
       - aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $ECR_REPO
 
