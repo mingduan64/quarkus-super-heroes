@@ -49,6 +49,7 @@ phases:
       - mv ./src/main/docker/Dockerfile.native ./Dockerfile
       - ls
       - docker --help
+      - dockerd
       - docker build -t $ECR_REPO/event-statistics:latest .
       - docker push "$ECR_REPO/event-statistics:latest"
       - mv Dockerfile Dockerfile.native
