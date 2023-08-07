@@ -16,12 +16,11 @@ phases:
        # Install AWS CLI
       - apt-get update && apt-get install -y --no-install-recommends python3-pip && pip3 install --upgrade awscli && apt-get clean && rm -rf /var/lib/apt/lists/*
       # Install Docker CLI
-      - apt-get update
-      - apt-get install -y --no-install-recommends apt-transport-https ca-certificates curl gnupg lsb-release
-      - curl -fsSL https://download.docker.com/linux/debian/gpg | gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
-      - echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian $(lsb_release -cs) stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null
-      - apt-get update
-      - apt-get install -y docker-ce docker-ce-cli containerd.io
+      - apt-get update && sudo apt-get install ca-certificates curl gnupg
+      - apt-get install install -m 0755 -d /etc/apt/keyrings
+      - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+      - chmod a+r /etc/apt/keyrings/docker.gpg
+      - apt-get update && sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
       - docker --version
       - aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $ECR_REPO
 
